@@ -1,0 +1,6 @@
+@PForum.API_HostAddress = http://localhost:5154
+
+GET {{PForum.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
