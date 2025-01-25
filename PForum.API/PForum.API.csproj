@@ -21,8 +21,4 @@
     <ProjectReference Include="..\PForum.Domain\PForum.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\img\" />
-  </ItemGroup>
-
 </Project>

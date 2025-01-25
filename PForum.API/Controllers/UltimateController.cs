@@ -79,9 +79,15 @@ namespace PForum.API.Controllers
 				Role = Domain.UserRole.Viewer,
 			};
 
-			_db.Users.Add(newUser);
+			try
+			{
+                _db.Users.Add(newUser);
 
-			_db.SaveChanges();
+                _db.SaveChanges();
+            } catch
+			{
+				return BadRequest();
+			}
 
 			var token = await GenerateAccessToken(newUser);
 
@@ -215,7 +221,7 @@ namespace PForum.API.Controllers
 		[HttpGet("langtopics")]
 		public async Task<IActionResult> GetLanguageTopics()
 		{
-			var result = _db.LanguageTopics.AsEnumerable();
+			var result = _db.LanguageTopics.ToList();
 			return Ok(result);
 		}
 
@@ -390,28 +396,6 @@ namespace PForum.API.Controllers
 
             return Ok(result);
         }
-
-
-		//[HttpPost("topicthreads")]
-		//public async Task<IActionResult> AddTopicThread(
-		//    [FromForm] string TopicThreadName,
-		//    [FromForm] string TopicThreadDescription,
-		//    [FromForm] Guid TopicId
-		//    )
-		//{
-		//    _db.TopicThreads.Add(
-		//        new TopicThread
-		//        {
-		//            TopicName = TopicThreadName,
-		//            TopicDescription = TopicThreadDescription,
-		//            LanguageTopicId = LanguageTopicId
-		//        }
-		//    );
-
-		//    _db.SaveChanges();
-
-		//    return Ok();
-		//}
 
 		[HttpPut("topicthreads")]
 		public async Task<IActionResult> UpdateTopicThread(
